@@ -20,11 +20,11 @@ interface Memory {
  * so the spatial layout doesn't telegraph the answer.
  */
 const MEMORIES: Memory[] = [
-  { id: 0, icon: "🤲", title: "A Prayer Answered", x: 58, y: 58, rotate: -4 },
-  { id: 1, icon: "💌", title: "The Rishta", x: 22, y: 26, rotate: 5 },
-  { id: 2, icon: "📸", title: "The First Photo", x: 72, y: 24, rotate: -2 },
-  { id: 3, icon: "👨‍👩‍👧‍👦", title: "The Families United", x: 18, y: 68, rotate: 4 },
-  { id: 4, icon: "✨", title: "The 'Yes'", x: 46, y: 42, rotate: -5 },
+  { id: 0, icon: "🤲", title: "A Prayer Answered", x: 65, y: 58, rotate: -4 },
+  { id: 1, icon: "💌", title: "The Rishta", x: 30, y: 26, rotate: 5 },
+  { id: 2, icon: "📸", title: "The First Photo", x: 78, y: 24, rotate: -2 },
+  { id: 3, icon: "👨‍👩‍👧‍👦", title: "The Families United", x: 26, y: 68, rotate: 4 },
+  { id: 4, icon: "✨", title: "The 'Yes'", x: 53, y: 42, rotate: -5 },
 ];
 
 const PROMPTS = [
