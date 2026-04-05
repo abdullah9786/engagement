@@ -212,21 +212,21 @@ export default function Level3() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{
               opacity: 0,
-              scale: 0.55,
-              y: 120,
-              filter: "blur(10px)",
-              transition: { duration: 0.9, ease: "easeIn" as const },
+              scale: 0.5,
+              y: 140,
+              filter: "blur(12px)",
+              transition: { duration: 1, ease: "easeIn" as const },
             }}
             transition={{ duration: 0.7 }}
           >
             <div
               className="flex flex-col items-center gap-8"
-              style={{ marginTop: "-5vh" }}
+              style={{ marginTop: "-4vh" }}
             >
               {/* whisper prompt */}
               <motion.p
-                className="text-[0.7rem] tracking-[0.4em] text-rose-200/25 uppercase"
-                animate={{ opacity: [0.15, 0.4, 0.15] }}
+                className="font-serif text-[0.72rem] tracking-[0.4em] text-rose-200/30 uppercase italic"
+                animate={{ opacity: [0.18, 0.45, 0.18] }}
                 transition={{
                   duration: 3.5,
                   repeat: Infinity,
@@ -242,167 +242,314 @@ export default function Level3() {
                 onMouseEnter={() => setSealHover(true)}
                 onMouseLeave={() => setSealHover(false)}
                 className="group relative cursor-pointer select-none focus:outline-none"
-                style={{ perspective: "900px" }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                style={{ perspective: "1000px" }}
+                whileHover={{ y: -6, scale: 1.025 }}
                 whileTap={{ scale: 0.97 }}
                 animate={
                   phase !== "opening"
                     ? {
-                        y: [0, -6, 0],
-                        rotate: [0, 0.6, 0, -0.6, 0],
+                        y: [0, -7, 0],
+                        rotate: [0, 0.5, 0, -0.5, 0],
                       }
                     : { y: 0, rotate: 0 }
                 }
                 transition={{
                   y: {
-                    duration: 3.8,
+                    duration: 4,
                     repeat: phase !== "opening" ? Infinity : 0,
                     ease: "easeInOut" as const,
                   },
                   rotate: {
-                    duration: 5.5,
+                    duration: 5.8,
                     repeat: phase !== "opening" ? Infinity : 0,
                     ease: "easeInOut" as const,
                   },
                 }}
               >
+                {/* warm ambient glow behind envelope */}
+                <div
+                  className="pointer-events-none absolute z-0 rounded-full"
+                  style={{
+                    width: "130%",
+                    height: "130%",
+                    top: "50%",
+                    left: "50%",
+                    translate: "-50% -50%",
+                    background: "radial-gradient(circle, rgba(212,175,55,0.06) 0%, rgba(190,100,60,0.03) 40%, transparent 65%)",
+                    filter: "blur(20px)",
+                  }}
+                />
+
+                {/* contact shadow */}
+                <div
+                  className="pointer-events-none absolute z-0"
+                  style={{
+                    width: "75%",
+                    height: "16px",
+                    bottom: "-12px",
+                    left: "12.5%",
+                    background: "radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%)",
+                    filter: "blur(6px)",
+                  }}
+                />
+
                 {/* body rectangle */}
                 <div
-                  className="relative h-[175px] w-[265px] overflow-hidden rounded-lg shadow-2xl shadow-black/40 sm:h-[195px] sm:w-[295px] md:h-[215px] md:w-[330px]"
+                  className="relative z-10 h-[180px] w-[275px] overflow-hidden rounded-xl sm:h-[200px] sm:w-[310px] md:h-[220px] md:w-[345px]"
                   style={{
                     background:
-                      "linear-gradient(145deg, #f5e6cc 0%, #e8d0ac 55%, #dcc4a0 100%)",
+                      "linear-gradient(155deg, #f7ebda 0%, #eedcc0 30%, #e4cda8 65%, #d9c19a 100%)",
+                    boxShadow:
+                      "0 20px 60px rgba(0,0,0,0.35), 0 8px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.06)",
                   }}
                 >
-                  {/* inner V-fold lines */}
+                  {/* gold border trim */}
+                  <div
+                    className="pointer-events-none absolute inset-[5px] z-10 rounded-[7px]"
+                    style={{
+                      border: "0.5px solid rgba(180,140,60,0.18)",
+                      boxShadow: "inset 0 0 12px rgba(180,140,60,0.04)",
+                    }}
+                  />
+
+                  {/* inner V-fold lines — thicker, with shadow */}
                   <svg
-                    className="absolute inset-0 h-full w-full"
-                    viewBox="0 0 330 215"
+                    className="absolute inset-0 z-[5] h-full w-full"
+                    viewBox="0 0 345 220"
                     preserveAspectRatio="none"
                   >
-                    <line
-                      x1="0"
-                      y1="0"
-                      x2="165"
-                      y2="88"
-                      stroke="rgba(0,0,0,0.035)"
-                      strokeWidth="0.8"
-                    />
-                    <line
-                      x1="330"
-                      y1="0"
-                      x2="165"
-                      y2="88"
-                      stroke="rgba(0,0,0,0.035)"
-                      strokeWidth="0.8"
-                    />
+                    <line x1="0" y1="0" x2="172.5" y2="95" stroke="rgba(160,120,70,0.08)" strokeWidth="1.2" />
+                    <line x1="345" y1="0" x2="172.5" y2="95" stroke="rgba(160,120,70,0.08)" strokeWidth="1.2" />
+                    <line x1="0" y1="0" x2="172.5" y2="95" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+                    <line x1="345" y1="0" x2="172.5" y2="95" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
                   </svg>
 
-                  {/* "For You" */}
-                  <div className="absolute inset-0 flex items-end justify-center pb-7 sm:pb-8">
-                    <p className="font-serif text-base italic tracking-wide text-[#a08060]/35 sm:text-lg">
+                  {/* subtle damask/filigree pattern overlay */}
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[4] opacity-[0.02]"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(160,120,70,0.5) 12px, transparent 13px), repeating-linear-gradient(-45deg, transparent, transparent 12px, rgba(160,120,70,0.5) 12px, transparent 13px)",
+                    }}
+                  />
+
+                  {/* "For You" — calligraphic */}
+                  <div className="absolute inset-0 z-[6] flex items-end justify-center pb-6 sm:pb-7">
+                    <p className="font-serif text-[1.05rem] italic tracking-wide text-[#a08060]/30 sm:text-lg"
+                       style={{ textShadow: "0 1px 1px rgba(255,255,255,0.15)" }}>
                       For You
                     </p>
                   </div>
 
-                  {/* paper grain */}
+                  {/* paper linen grain */}
                   <div
-                    className="absolute inset-0 opacity-[0.025]"
+                    className="absolute inset-0 z-[3] opacity-[0.035]"
                     style={{
                       backgroundImage:
-                        "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, transparent 3px)",
+                        "repeating-linear-gradient(0deg, transparent, transparent 1.5px, rgba(0,0,0,0.12) 1.5px, transparent 2.5px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, transparent 4px)",
+                    }}
+                  />
+
+                  {/* warm inner vignette */}
+                  <div
+                    className="pointer-events-none absolute inset-0 z-[7]"
+                    style={{
+                      background: "radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(140,100,50,0.06) 100%)",
                     }}
                   />
                 </div>
 
-                {/* flap (triangle, 3D open) */}
+                {/* flap — curved bottom edge with depth */}
                 <motion.div
-                  className="absolute top-0 left-0 right-0 z-10 rounded-t-lg"
+                  className="absolute top-0 right-0 left-0 z-20 rounded-t-xl"
                   style={{
-                    height: "54%",
+                    height: "56%",
                     clipPath: "polygon(0% 0%, 100% 0%, 50% 100%)",
                     background:
-                      "linear-gradient(180deg, #eddbb8 0%, #dcc4a0 100%)",
+                      "linear-gradient(180deg, #f2e0c4 0%, #e5ceac 50%, #d9c19a 100%)",
                     transformOrigin: "center top",
                     backfaceVisibility: "hidden",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
                   }}
                   animate={{
-                    rotateX: phase === "opening" ? -170 : 0,
+                    rotateX: phase === "opening" ? -175 : 0,
                   }}
                   transition={{
-                    duration: 0.75,
+                    duration: 0.85,
                     ease: [0.4, 0, 0.2, 1],
-                    delay: phase === "opening" ? 0.25 : 0,
+                    delay: phase === "opening" ? 0.2 : 0,
                   }}
-                />
+                >
+                  {/* flap fold crease */}
+                  <div
+                    className="pointer-events-none absolute bottom-[38%] left-[15%] right-[15%] h-px"
+                    style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,70,0.08), transparent)" }}
+                  />
+                  {/* flap paper grain */}
+                  <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(0deg, transparent, transparent 1.5px, rgba(0,0,0,0.1) 1.5px, transparent 2.5px)",
+                    }}
+                  />
+                </motion.div>
 
-                {/* wax seal */}
+                {/* letter peek rising during open */}
+                {phase === "opening" && (
+                  <motion.div
+                    className="absolute z-[15] rounded-t-md"
+                    style={{
+                      left: "15%",
+                      right: "15%",
+                      top: "10%",
+                      height: "40%",
+                      background: "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(245,240,230,0.9) 100%)",
+                      boxShadow: "0 -2px 8px rgba(0,0,0,0.08)",
+                    }}
+                    initial={{ y: 0, opacity: 0 }}
+                    animate={{ y: -30, opacity: 1 }}
+                    transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {/* faint writing lines on the letter peek */}
+                    <div className="flex flex-col gap-[6px] px-4 pt-4">
+                      {[0.55, 0.7, 0.5, 0.6].map((w, j) => (
+                        <motion.div
+                          key={j}
+                          className="h-[1.5px] rounded-full bg-rose-300/15"
+                          style={{ width: `${w * 100}%` }}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.4, delay: 0.7 + j * 0.08 }}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* wax seal — ornate */}
                 <AnimatePresence>
                   {phase === "sealed" && (
                     <motion.div
-                      className="absolute z-20 flex items-center justify-center rounded-full shadow-lg"
+                      className="absolute z-30 flex items-center justify-center rounded-full"
                       style={{
-                        top: "38%",
+                        top: "36%",
                         left: "50%",
                         translate: "-50% -50%",
-                        width: 46,
-                        height: 46,
+                        width: 52,
+                        height: 52,
                         background:
-                          "radial-gradient(circle at 38% 38%, #c03030, #8b1a1a 55%, #6b1010)",
-                        border: "2px solid rgba(90,14,14,0.7)",
+                          "radial-gradient(circle at 35% 35%, #d43535 0%, #b02020 35%, #8b1a1a 65%, #6b1010 100%)",
+                        boxShadow:
+                          "0 3px 10px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.15), inset 0 -1px 2px rgba(0,0,0,0.2)",
                       }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      exit={{ scale: 0, opacity: 0, rotate: 20 }}
+                      transition={{ duration: 0.3 }}
                     >
+                      {/* outer ring emboss */}
+                      <div
+                        className="absolute inset-[3px] rounded-full"
+                        style={{
+                          border: "1px solid rgba(255,200,200,0.12)",
+                          boxShadow: "inset 0 0 4px rgba(0,0,0,0.15)",
+                        }}
+                      />
+                      {/* inner ring */}
+                      <div
+                        className="absolute inset-[7px] rounded-full"
+                        style={{
+                          border: "0.5px solid rgba(255,200,200,0.08)",
+                        }}
+                      />
+
+                      {/* hover glow */}
                       <motion.div
-                        className="absolute inset-0 rounded-full"
+                        className="absolute -inset-2 rounded-full"
                         animate={{
                           boxShadow: sealHover
-                            ? "0 0 22px 5px rgba(220,110,60,0.45)"
-                            : "0 0 8px 1px rgba(180,60,30,0.15)",
+                            ? "0 0 28px 8px rgba(220,110,60,0.5)"
+                            : "0 0 12px 2px rgba(180,60,30,0.12)",
                         }}
-                        transition={{ duration: 0.4 }}
+                        transition={{ duration: 0.35 }}
                       />
-                      <span className="select-none text-base text-amber-300/80">
+
+                      {/* idle pulsing glow */}
+                      <motion.div
+                        className="pointer-events-none absolute -inset-1 rounded-full"
+                        animate={{
+                          boxShadow: [
+                            "0 0 8px 2px rgba(200,80,40,0.08)",
+                            "0 0 16px 4px rgba(200,80,40,0.18)",
+                            "0 0 8px 2px rgba(200,80,40,0.08)",
+                          ],
+                        }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut" as const,
+                        }}
+                      />
+
+                      {/* monogram heart */}
+                      <span className="relative z-10 select-none text-lg text-amber-300/90"
+                            style={{ textShadow: "0 1px 2px rgba(0,0,0,0.3)" }}>
                         ♥
                       </span>
+
+                      {/* small wax drip */}
+                      <div
+                        className="absolute -bottom-[5px] left-[40%] h-[7px] w-[7px] rounded-full"
+                        style={{
+                          background: "radial-gradient(circle at 40% 30%, #b02020, #7a1515)",
+                          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+                        }}
+                      />
+                      <div
+                        className="absolute -bottom-[3px] right-[32%] h-[5px] w-[5px] rounded-full"
+                        style={{
+                          background: "radial-gradient(circle at 40% 30%, #a01c1c, #6b1010)",
+                          boxShadow: "0 1px 2px rgba(0,0,0,0.15)",
+                        }}
+                      />
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                {/* seal fragments on break */}
+                {/* seal fragments on break — more pieces, varied sizes */}
                 {phase === "opening" && (
                   <div
-                    className="pointer-events-none absolute z-30"
+                    className="pointer-events-none absolute z-40"
                     style={{
-                      top: "38%",
+                      top: "36%",
                       left: "50%",
                       translate: "-50% -50%",
                     }}
                   >
-                    {Array.from({ length: 8 }).map((_, i) => {
+                    {Array.from({ length: 12 }).map((_, i) => {
                       const a =
-                        (i / 8) * Math.PI * 2 +
-                        ((i % 3) - 1) * 0.35;
-                      const d = 30 + (i % 3) * 12;
+                        (i / 12) * Math.PI * 2 +
+                        ((i % 3) - 1) * 0.3;
+                      const d = 35 + (i % 4) * 10;
                       return (
                         <motion.div
                           key={i}
                           className="absolute rounded-sm"
                           style={{
-                            width: 5 + (i % 3) * 2.5,
-                            height: 4 + (i % 2) * 2,
-                            background: `hsl(${2 + i * 3}, 62%, ${22 + i * 3}%)`,
+                            width: 4 + (i % 4) * 2,
+                            height: 3 + (i % 3) * 2,
+                            background: `hsl(${2 + i * 2.5}, 60%, ${20 + i * 2.5}%)`,
+                            boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
                           }}
-                          initial={{ x: 0, y: 0, opacity: 1, rotate: 0 }}
+                          initial={{ x: 0, y: 0, opacity: 1, rotate: 0, scale: 1 }}
                           animate={{
                             x: Math.cos(a) * d,
-                            y: Math.sin(a) * d - 12,
+                            y: Math.sin(a) * d + 8,
                             opacity: 0,
-                            rotate: (i - 4) * 35,
+                            rotate: (i - 6) * 40,
+                            scale: 0.4,
                           }}
                           transition={{
-                            duration: 0.45 + (i % 3) * 0.1,
+                            duration: 0.5 + (i % 3) * 0.1,
                             ease: "easeOut" as const,
                           }}
                         />
@@ -419,21 +566,24 @@ export default function Level3() {
                 animate={{ opacity: phase === "sealed" ? 1 : 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
+                {/* animated hand icon */}
                 <motion.div
-                  className="h-5 w-px bg-gradient-to-b from-rose-300/20 to-transparent"
+                  className="text-sm text-rose-300/20"
                   animate={{
-                    scaleY: [1, 1.4, 1],
-                    opacity: [0.25, 0.45, 0.25],
+                    y: [0, 3, 0],
+                    opacity: [0.15, 0.35, 0.15],
                   }}
                   transition={{
-                    duration: 2.5,
+                    duration: 2,
                     repeat: Infinity,
                     ease: "easeInOut" as const,
                   }}
-                />
+                >
+                  👆
+                </motion.div>
                 <motion.p
-                  className="text-[0.6rem] tracking-[0.45em] text-rose-300/18 uppercase"
-                  animate={{ opacity: [0.1, 0.3, 0.1] }}
+                  className="text-[0.6rem] tracking-[0.45em] text-rose-300/20 uppercase"
+                  animate={{ opacity: [0.12, 0.32, 0.12] }}
                   transition={{
                     duration: 3.5,
                     repeat: Infinity,

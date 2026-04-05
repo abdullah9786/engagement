@@ -12,6 +12,7 @@ interface Memory {
   x: number;
   y: number;
   rotate: number;
+  entryFrom: { x: number; y: number; r: number };
 }
 
 /*
@@ -20,11 +21,11 @@ interface Memory {
  * so the spatial layout doesn't telegraph the answer.
  */
 const MEMORIES: Memory[] = [
-  { id: 0, icon: "🤲", title: "A Prayer Answered", x: 65, y: 58, rotate: -4 },
-  { id: 1, icon: "💌", title: "The Rishta", x: 30, y: 26, rotate: 5 },
-  { id: 2, icon: "📸", title: "The First Photo", x: 78, y: 24, rotate: -2 },
-  { id: 3, icon: "👨‍👩‍👧‍👦", title: "The Families United", x: 26, y: 68, rotate: 4 },
-  { id: 4, icon: "✨", title: "The 'Yes'", x: 53, y: 42, rotate: -5 },
+  { id: 0, icon: "🤲", title: "A Prayer Answered", x: 65, y: 58, rotate: -4, entryFrom: { x: 120, y: 80, r: 25 } },
+  { id: 1, icon: "💌", title: "The Rishta", x: 30, y: 26, rotate: 5, entryFrom: { x: -100, y: -60, r: -20 } },
+  { id: 2, icon: "📸", title: "The First Photo", x: 78, y: 24, rotate: -2, entryFrom: { x: 90, y: -70, r: 18 } },
+  { id: 3, icon: "👨‍👩‍👧‍👦", title: "The Families United", x: 26, y: 68, rotate: 4, entryFrom: { x: -110, y: 60, r: -22 } },
+  { id: 4, icon: "✨", title: "The 'Yes'", x: 53, y: 42, rotate: -5, entryFrom: { x: 0, y: 120, r: 15 } },
 ];
 
 const PROMPTS = [
