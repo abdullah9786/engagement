@@ -152,8 +152,8 @@ canvas {
   flex-grow: 1;
   font-size: 80%;
   text-align: center;
-  margin-top: 10px;
-  padding-top: 10px;
+  /* margin-top: 10px; */
+  /* padding-top: 10px; */
   box-sizing: border-box;
   border-top: solid 1px #2e2518;
   color: #9a8560;
@@ -163,6 +163,7 @@ canvas {
   justify-content: center;
   font-family: Georgia, "Times New Roman", serif;
   font-style: italic;
+  align-items: center;
 }
 
 .page .page-content .page-footer {
