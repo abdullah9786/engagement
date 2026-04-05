@@ -5,8 +5,38 @@ import { motion } from "framer-motion";
 import { useGame } from "@/context/GameContext";
 import type { PageFlip } from "page-flip";
 
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus mollis nibh, non convallis ex convallis eu. Suspendisse potenti. Aenean vitae pellentesque erat. Integer non tristique quam. Suspendisse rutrum, augue ac sollicitudin mollis, eros velit viverra metus, a venenatis tellus tellus id magna.";
+const PAGES = [
+  {
+    icon: "🤲",
+    title: "A Prayer Answered",
+    text: "It began the way all beautiful things do — with a quiet prayer and trust in what was meant to be.",
+  },
+  {
+    icon: "💌",
+    title: "The Rishta",
+    text: "A name was spoken, a family reached out, and two households began a conversation that would change everything.",
+  },
+  {
+    icon: "📸",
+    title: "The First Photo",
+    text: "A single photograph was shared — and somehow, without a word exchanged, it felt like the beginning of something right.",
+  },
+  {
+    icon: "👨‍👩‍👧‍👦",
+    title: "Families United",
+    text: "Two families met, shared chai and laughter, and discovered that some bonds are simply written in fate.",
+  },
+  {
+    icon: "✨",
+    title: "The \u2018Yes\u2019",
+    text: "With blessings from both sides, the answer came — not as a surprise, but as a quiet confirmation of what everyone already felt.",
+  },
+  {
+    icon: "🤝",
+    title: "A New Beginning",
+    text: "And so, two families became one story. Not with grand gestures, but with faith, respect, and the promise of a shared journey ahead.",
+  },
+];
 
 const PAGE_W = 280;
 const PAGE_H = 400;
@@ -191,63 +221,33 @@ export default function Level2() {
                 height: isPortrait ? "min(70vh, 420px)" : PAGE_H,
               }}
             >
-              {/* cover */}
+              {/* front cover */}
               <div
                 className="page page-cover page-cover-top"
                 data-density="hard"
               >
                 <div className="page-content">
-                  <h2>BOOK TITLE</h2>
+                  <h2>The Book of Fate</h2>
                 </div>
               </div>
 
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 1</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">1</div>
+              {/* story pages */}
+              {PAGES.map((p, i) => (
+                <div className="page" key={i}>
+                  <div className="page-content">
+                    <h2 className="page-header">{p.title}</h2>
+                    <div className="page-text">
+                      <div style={{ fontSize: "2em", textAlign: "center", marginBottom: 12 }}>
+                        {p.icon}
+                      </div>
+                      <p>{p.text}</p>
+                    </div>
+                    <div className="page-footer">
+                      {String(i + 1).padStart(2, "0")} / {String(PAGES.length).padStart(2, "0")}
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 2</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">2</div>
-                </div>
-              </div>
-
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 3</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">3</div>
-                </div>
-              </div>
-
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 4</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">4</div>
-                </div>
-              </div>
-
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 5</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">5</div>
-                </div>
-              </div>
-
-              <div className="page">
-                <div className="page-content">
-                  <h2 className="page-header">Page header - 6</h2>
-                  <div className="page-text">{LOREM}</div>
-                  <div className="page-footer">6</div>
-                </div>
-              </div>
+              ))}
 
               {/* back cover */}
               <div
@@ -255,7 +255,7 @@ export default function Level2() {
                 data-density="hard"
               >
                 <div className="page-content">
-                  <h2>THE END</h2>
+                  <h2>Written in the Stars</h2>
                 </div>
               </div>
             </div>
