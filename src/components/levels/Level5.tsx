@@ -41,9 +41,9 @@ export default function Level5() {
     };
   }, []);
 
-  /* ── hold mechanics ───────────────────────────────── */
-  const startHold = useCallback(() => {
-    if (doneRef.current || phase !== "sealed") return;
+  /* ── tap to start auto-reveal ─────────────────────── */
+  const startReveal = useCallback(() => {
+    if (doneRef.current || phase !== "sealed" || holding) return;
     haptic(15);
     play("heartbeat");
     setHolding(true);
@@ -94,16 +94,7 @@ export default function Level5() {
         return next;
       });
     }, TICK_MS);
-  }, [phase, completeLevel]);
-
-  const endHold = useCallback(() => {
-    if (doneRef.current) return;
-    setHolding(false);
-    if (ivRef.current) clearInterval(ivRef.current);
-    if (vibeRef.current) clearInterval(vibeRef.current);
-    progressRef.current = 0;
-    setProgress(0);
-  }, []);
+  }, [phase, holding, completeLevel]);
 
   const circ = 2 * Math.PI * 44;
   const dashOff = circ - (progress / 100) * circ;
@@ -182,11 +173,9 @@ export default function Level5() {
             {/* ── THE SEAL ──────────────────────────── */}
             <motion.div
               className="relative flex select-none items-center justify-center"
-              onPointerDown={startHold}
-              onPointerUp={endHold}
-              onPointerLeave={() => { endHold(); setSealHover(false); }}
-              onPointerCancel={endHold}
+              onClick={startReveal}
               onPointerEnter={() => setSealHover(true)}
+              onPointerLeave={() => setSealHover(false)}
               style={{
                 cursor: "pointer",
                 WebkitTapHighlightColor: "transparent",
@@ -437,7 +426,7 @@ export default function Level5() {
                     transition={{ duration: 0.2 }}
                   >
                     {progress < 30
-                      ? "Keep holding\u2026"
+                      ? "Revealing\u2026"
                       : progress < 65
                         ? "The seal weakens\u2026"
                         : "Almost\u2026"}
@@ -445,17 +434,17 @@ export default function Level5() {
                 ) : (
                   <motion.p
                     key="idle"
-                    className="text-[0.62rem] tracking-[0.42em] text-amber-300/20 uppercase"
+                    className="text-xs tracking-[0.35em] text-amber-300/60 uppercase sm:text-sm"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: [0.12, 0.35, 0.12] }}
+                    animate={{ opacity: [0.5, 0.85, 0.5] }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: 3.5,
+                      duration: 3,
                       repeat: Infinity,
                       ease: "easeInOut" as const,
                     }}
                   >
-                    hold to reveal
+                    tap to reveal
                   </motion.p>
                 )}
               </AnimatePresence>
