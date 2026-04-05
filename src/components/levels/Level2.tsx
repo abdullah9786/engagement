@@ -52,7 +52,7 @@ const CLIP: Record<ClipStage, string> = {
 
 export default function Level2() {
   const { completeLevel } = useGame();
-  const [phase, setPhase] = useState<"intro" | "book" | "complete">("intro");
+  const [phase, setPhase] = useState<"book" | "complete">("book");
   const [bookReady, setBookReady] = useState(false);
   const [shift, setShift] = useState(-(PAGE_W / 2));
   const [clip, setClip] = useState<ClipStage>("cover");
@@ -65,12 +65,6 @@ export default function Level2() {
     const t = setTimeout(fn, ms);
     timers.current.push(t);
   };
-
-  /* intro → book */
-  useEffect(() => {
-    const t = setTimeout(() => setPhase("book"), 1800);
-    return () => clearTimeout(t);
-  }, []);
 
   /* complete → advance to next level */
   useEffect(() => {
@@ -182,23 +176,6 @@ export default function Level2() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* ═══ INTRO ═══ */}
-      {phase === "intro" && (
-        <motion.div
-          className="flex h-full items-center justify-center text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div>
-            <h2 className="font-serif text-2xl tracking-widest text-violet-200/80 uppercase">
-              Chapter II
-            </h2>
-            <p className="mt-2 text-lg text-violet-100/50">The Book of Fate</p>
-          </div>
-        </motion.div>
-      )}
-
       {/* ═══ BOOK ═══ */}
       {phase === "book" && (
         <div

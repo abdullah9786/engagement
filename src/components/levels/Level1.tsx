@@ -440,8 +440,8 @@ export default function Level1() {
                     </div>
 
                     <motion.p
-                      className="text-[0.65rem] tracking-[0.45em] text-amber-300/20 uppercase"
-                      animate={{ opacity: [0.12, 0.38, 0.12] }}
+                      className="text-[0.65rem] tracking-[0.45em] text-amber-200/70 uppercase"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
                       transition={{
                         duration: 4,
                         repeat: Infinity,

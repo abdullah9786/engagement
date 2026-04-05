@@ -25,19 +25,22 @@ const DUST = Array.from({ length: 10 }, (_, i) => ({
   drift: 10 + seedRand(i, 6) * 18,
 }));
 
+/* ── TEMPORARILY DISABLED: set to false to re-enable this chapter ── */
+const SKIP_LEVEL = true;
+
 export default function Level3() {
   const { completeLevel } = useGame();
   const { play, haptic } = useSound();
-  const [phase, setPhase] = useState<
-    "intro" | "drawing" | "converged"
-  >("intro");
-  const doneRef = useRef(false);
 
-  /* ── intro → drawing ────────────────────────────────── */
   useEffect(() => {
-    const t = setTimeout(() => setPhase("drawing"), 1800);
-    return () => clearTimeout(t);
-  }, []);
+    if (SKIP_LEVEL) completeLevel(3);
+  }, [completeLevel]);
+
+  if (SKIP_LEVEL) return null;
+  const [phase, setPhase] = useState<
+    "drawing" | "converged"
+  >("drawing");
+  const doneRef = useRef(false);
 
   /* ── drawing → converged → next level ────────────── */
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function Level3() {
   }, [phase, completeLevel]);
 
   const isActive = phase === "drawing" || phase === "converged";
-  const threadTarget = phase === "intro" ? 0 : 1;
+  const threadTarget = 1;
 
   return (
     <motion.div
@@ -124,29 +127,6 @@ export default function Level3() {
           ))}
         </div>
       )}
-
-      {/* ── intro ────────────────────────────────────── */}
-      <AnimatePresence mode="wait">
-        {phase === "intro" && (
-          <motion.div
-            key="intro"
-            className="flex h-full items-center justify-center text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div>
-              <h2 className="font-serif text-2xl tracking-widest text-amber-200/80 uppercase">
-                Chapter III
-              </h2>
-              <p className="mt-2 text-lg text-amber-100/45">
-                The Golden Thread
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* ── main scene ───────────────────────────────── */}
       <AnimatePresence>

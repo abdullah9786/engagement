@@ -14,7 +14,7 @@ const CRACK_ANGLES = [18, 72, 128, 195, 252, 310];
 export default function Level5() {
   const { completeLevel } = useGame();
   const { play, haptic } = useSound();
-  const [phase, setPhase] = useState<"intro" | "sealed" | "shatter">("intro");
+  const [phase, setPhase] = useState<"sealed" | "shatter">("sealed");
   const [sealHover, setSealHover] = useState(false);
   const [progress, setProgress] = useState(0);
   const [holding, setHolding] = useState(false);
@@ -29,10 +29,6 @@ export default function Level5() {
   };
 
   /* ── timing ───────────────────────────────────────── */
-  useEffect(() => {
-    const t = setTimeout(() => setPhase("sealed"), 1800);
-    return () => clearTimeout(t);
-  }, []);
 
   useEffect(() => {
     return () => {
@@ -126,25 +122,6 @@ export default function Level5() {
       </motion.div>
 
       <AnimatePresence mode="wait">
-        {/* ── intro ────────────────────────────────── */}
-        {phase === "intro" && (
-          <motion.div
-            key="intro"
-            className="flex h-full items-center justify-center text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div>
-              <h2 className="font-serif text-2xl tracking-widest text-amber-200/80 uppercase">
-                Chapter V
-              </h2>
-              <p className="mt-2 text-lg text-amber-100/50">The Reveal</p>
-            </div>
-          </motion.div>
-        )}
-
         {/* ── sealed — the main interaction ────────── */}
         {phase === "sealed" && (
           <motion.div
