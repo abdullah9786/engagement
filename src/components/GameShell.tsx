@@ -19,7 +19,7 @@ interface LevelDef {
 const LEVELS: Record<number, LevelDef> = {
   1: { component: Level1, particle: "", ownParticles: true },
   2: { component: Level2, particle: "rgba(167, 139, 250, 0.4)" },
-  3: { component: Level3, particle: "rgba(244, 63, 94, 0.4)" },
+  3: { component: Level3, particle: "rgba(212, 175, 55, 0.3)" },
   4: { component: Level4, particle: "", ownParticles: true },
   5: { component: Level5, particle: "rgba(212, 175, 55, 0.35)" },
   6: { component: Level6, particle: "rgba(245, 158, 11, 0.5)" },
