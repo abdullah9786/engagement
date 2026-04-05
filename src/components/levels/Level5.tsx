@@ -47,6 +47,9 @@ export default function Level5() {
     ivRef.current = setInterval(() => {
       setProgress((prev) => {
         const next = prev + (TICK_MS / HOLD_MS) * 100;
+        if (Math.floor(next) % 10 === 0) {
+          haptic(8 + Math.floor(next / 5));
+        }
         if (next >= 100) {
           if (ivRef.current) clearInterval(ivRef.current);
           doneRef.current = true;
@@ -135,7 +138,7 @@ export default function Level5() {
               <h2 className="font-serif text-2xl tracking-widest text-amber-200/80 uppercase">
                 Chapter V
               </h2>
-              <p className="mt-2 text-lg text-amber-100/50">The Seal</p>
+              <p className="mt-2 text-lg text-amber-100/50">The Reveal</p>
             </div>
           </motion.div>
         )}
@@ -445,7 +448,7 @@ export default function Level5() {
                       ease: "easeInOut" as const,
                     }}
                   >
-                    hold to break the seal
+                    hold to reveal
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -558,7 +561,7 @@ export default function Level5() {
                 animate={{ y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
               >
-                The seal is broken
+                The moment has arrived&hellip;
               </motion.p>
               <motion.p
                 className="text-sm text-amber-100/35"
