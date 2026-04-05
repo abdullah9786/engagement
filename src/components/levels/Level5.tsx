@@ -19,6 +19,8 @@ export default function Level5() {
   const [progress, setProgress] = useState(0);
   const [holding, setHolding] = useState(false);
   const ivRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const vibeRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef(0);
   const doneRef = useRef(false);
 
   const sr = (seed: number, i: number) => {
@@ -35,26 +37,33 @@ export default function Level5() {
   useEffect(() => {
     return () => {
       if (ivRef.current) clearInterval(ivRef.current);
+      if (vibeRef.current) clearInterval(vibeRef.current);
     };
   }, []);
 
   /* ── hold mechanics ───────────────────────────────── */
   const startHold = useCallback(() => {
     if (doneRef.current || phase !== "sealed") return;
-    haptic(8);
+    haptic(15);
     play("heartbeat");
     setHolding(true);
+    progressRef.current = 0;
+
+    vibeRef.current = setInterval(() => {
+      const intensity = 10 + Math.floor(progressRef.current / 4);
+      haptic(intensity);
+    }, 150);
+
     ivRef.current = setInterval(() => {
       setProgress((prev) => {
         const next = prev + (TICK_MS / HOLD_MS) * 100;
-        if (Math.floor(next) % 10 === 0) {
-          haptic(8 + Math.floor(next / 5));
-        }
+        progressRef.current = next;
         if (next >= 100) {
           if (ivRef.current) clearInterval(ivRef.current);
+          if (vibeRef.current) clearInterval(vibeRef.current);
           doneRef.current = true;
           setHolding(false);
-          haptic([20, 30, 20, 30, 40]);
+          haptic([25, 40, 25, 40, 50]);
           play("shatter");
           setPhase("shatter");
 
@@ -91,6 +100,8 @@ export default function Level5() {
     if (doneRef.current) return;
     setHolding(false);
     if (ivRef.current) clearInterval(ivRef.current);
+    if (vibeRef.current) clearInterval(vibeRef.current);
+    progressRef.current = 0;
     setProgress(0);
   }, []);
 
