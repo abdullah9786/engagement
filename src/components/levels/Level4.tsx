@@ -34,14 +34,14 @@ export default function Level4() {
     const colors = ["#d4af37", "#f5e6cc", "#f59e0b", "#fbbf24", "#ec4899"];
 
     confetti({
-      particleCount: 110,
+      particleCount: 60,
       angle: 60,
       spread: 65,
       origin: { x: 0, y: 0.65 },
       colors,
     });
     confetti({
-      particleCount: 110,
+      particleCount: 60,
       angle: 120,
       spread: 65,
       origin: { x: 1, y: 0.65 },
@@ -49,8 +49,8 @@ export default function Level4() {
     });
     setTimeout(() => {
       confetti({
-        particleCount: 70,
-        spread: 110,
+        particleCount: 40,
+        spread: 100,
         origin: { y: 0.45 },
         colors: colors.slice(0, 4),
       });
@@ -71,7 +71,7 @@ export default function Level4() {
     (e: React.MouseEvent) => {
       if (phase !== "drop" && phase !== "celebrate") return;
       confetti({
-        particleCount: 45,
+        particleCount: 25,
         spread: 70,
         origin: {
           x: e.clientX / window.innerWidth,
@@ -252,14 +252,14 @@ export default function Level4() {
           className="pointer-events-none absolute inset-0 z-[5] overflow-hidden"
           style={{ translate: "0 -6%" }}
         >
-          {Array.from({ length: 24 }).map((_, i) => (
+          {Array.from({ length: 12 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute left-1/2 top-[43%] origin-bottom"
               style={{
                 width: 1 + (i % 4) * 0.35,
                 height: "55vh",
-                transform: `translateX(-50%) rotate(${i * 15}deg)`,
+                transform: `translateX(-50%) rotate(${i * 30}deg)`,
                 background: `linear-gradient(to top, rgba(212,175,55,${0.025 + (i % 3) * 0.012}), transparent 50%)`,
               }}
               initial={{ scaleY: 0, opacity: 0 }}
@@ -287,11 +287,10 @@ export default function Level4() {
         transition={{ duration: 1.6, ease: "easeOut" as const }}
       >
         <div
-          className="h-[550px] w-[550px] rounded-full md:h-[750px] md:w-[750px]"
+          className="h-[450px] w-[450px] rounded-full md:h-[600px] md:w-[600px]"
           style={{
             background:
-              "radial-gradient(circle, rgba(212,175,55,0.07) 0%, rgba(170,120,35,0.025) 40%, transparent 65%)",
-            filter: "blur(35px)",
+              "radial-gradient(circle, rgba(212,175,55,0.08) 0%, rgba(170,120,35,0.03) 40%, transparent 65%)",
           }}
         />
       </motion.div>
@@ -337,13 +336,11 @@ export default function Level4() {
                 className="font-serif text-[2.1rem] leading-[1.15] font-light tracking-wide text-amber-100 sm:text-5xl md:text-[4.2rem]"
                 initial={{
                   opacity: 0,
-                  scale: 3,
-                  filter: "blur(28px)",
+                  scale: 2.5,
                 }}
                 animate={{
                   opacity: 1,
                   scale: 1,
-                  filter: "blur(0px)",
                 }}
                 transition={{
                   duration: 1.1,
@@ -352,7 +349,6 @@ export default function Level4() {
                     damping: 14,
                     stiffness: 65,
                   },
-                  filter: { duration: 0.6 },
                 }}
               >
                 We&rsquo;re getting engaged
@@ -425,7 +421,7 @@ export default function Level4() {
       {/* ── floating hearts ────────────────────────── */}
       {revealed && (
         <div className="pointer-events-none absolute inset-0 z-[15] overflow-hidden">
-          {Array.from({ length: 10 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute text-amber-400/12"

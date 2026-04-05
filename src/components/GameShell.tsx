@@ -41,31 +41,31 @@ interface TransDef {
 const TRANS: Record<number, TransDef> = {
   1: {
     initial: { opacity: 0 },
-    exit: { opacity: 0, scale: 0.88, filter: "blur(14px)" },
+    exit: { opacity: 0, scale: 0.88 },
     duration: 0.7,
   },
   2: {
-    initial: { opacity: 0, x: 60, filter: "blur(4px)" },
-    exit: { opacity: 0, x: -60, filter: "blur(4px)" },
+    initial: { opacity: 0, x: 60 },
+    exit: { opacity: 0, x: -60 },
     duration: 0.6,
   },
   3: {
-    initial: { opacity: 0, y: 50, filter: "blur(3px)" },
+    initial: { opacity: 0, y: 50 },
     exit: { opacity: 0, y: -35, scale: 0.97 },
     duration: 0.65,
   },
   4: {
-    initial: { opacity: 0, scale: 1.15, filter: "blur(16px)" },
-    exit: { opacity: 0, scale: 0.94, filter: "blur(6px)" },
+    initial: { opacity: 0, scale: 1.15 },
+    exit: { opacity: 0, scale: 0.94 },
     duration: 0.75,
   },
   5: {
-    initial: { opacity: 0, scale: 0.96, filter: "blur(5px)" },
-    exit: { opacity: 0, scale: 1.08, filter: "blur(10px)" },
+    initial: { opacity: 0, scale: 0.96 },
+    exit: { opacity: 0, scale: 1.08 },
     duration: 0.65,
   },
   6: {
-    initial: { opacity: 0, scale: 0.85, filter: "blur(10px)" },
+    initial: { opacity: 0, scale: 0.85 },
     exit: { opacity: 0 },
     duration: 0.85,
   },
@@ -88,7 +88,7 @@ export default function GameShell() {
         <Particles
           key={`p-${currentLevel}`}
           color={level.particle}
-          count={50}
+          count={25}
         />
       )}
 
@@ -134,7 +134,6 @@ export default function GameShell() {
             scale: 1,
             x: 0,
             y: 0,
-            filter: "blur(0px)",
           }}
           exit={{
             ...t.exit,

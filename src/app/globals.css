@@ -64,6 +64,10 @@ button {
   touch-action: manipulation;
 }
 
+canvas {
+  will-change: contents;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

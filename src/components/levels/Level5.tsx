@@ -7,7 +7,7 @@ import { useGame } from "@/context/GameContext";
 import { useSound } from "@/hooks/useSound";
 
 const HOLD_MS = 3000;
-const TICK_MS = 20;
+const TICK_MS = 40;
 
 const CRACK_ANGLES = [18, 72, 128, 195, 252, 310];
 
@@ -68,20 +68,20 @@ export default function Level5() {
           setPhase("shatter");
 
           confetti({
-            particleCount: 130,
-            spread: 100,
+            particleCount: 70,
+            spread: 90,
             origin: { y: 0.42 },
             colors: ["#d4af37", "#f5e6cc", "#f59e0b", "#fbbf24"],
           });
           confetti({
-            particleCount: 60,
+            particleCount: 35,
             angle: 60,
             spread: 55,
             origin: { x: 0, y: 0.5 },
             colors: ["#d4af37", "#fbbf24"],
           });
           confetti({
-            particleCount: 60,
+            particleCount: 35,
             angle: 120,
             spread: 55,
             origin: { x: 1, y: 0.5 },
@@ -125,11 +125,11 @@ export default function Level5() {
         <div
           className="rounded-full"
           style={{
-            width: 400 + progress * 2,
-            height: 400 + progress * 2,
-            background: `radial-gradient(circle, rgba(212,175,55,${0.035 + progress * 0.0012}) 0%, transparent 60%)`,
-            filter: `blur(${35 + progress * 0.2}px)`,
-            transition: "width 0.1s, height 0.1s",
+            width: 400,
+            height: 400,
+            background: `radial-gradient(circle, rgba(212,175,55,${0.04 + progress * 0.0015}) 0%, transparent 60%)`,
+            transform: `scale(${1 + progress * 0.005})`,
+            transition: "transform 0.1s, background 0.1s",
           }}
         />
       </motion.div>
@@ -164,7 +164,6 @@ export default function Level5() {
             exit={{
               opacity: 0,
               scale: 1.2,
-              filter: "blur(14px)",
               transition: { duration: 0.7 },
             }}
             transition={{ duration: 0.7 }}
@@ -208,7 +207,7 @@ export default function Level5() {
               }
               transition={
                 holding
-                  ? { duration: 0.1, repeat: Infinity }
+                  ? { duration: 0.15, repeat: Infinity }
                   : { duration: 0.35, type: "spring" as const }
               }
             >
@@ -216,11 +215,11 @@ export default function Level5() {
               <motion.div
                 className="absolute rounded-full"
                 style={{
-                  width: 230 + progress * 2,
-                  height: 230 + progress * 2,
-                  background: `radial-gradient(circle, rgba(255,245,190,${progress * 0.0035}) 0%, transparent 50%)`,
-                  filter: `blur(${18 + progress * 0.3}px)`,
-                  transition: "all 0.08s linear",
+                  width: 230,
+                  height: 230,
+                  background: `radial-gradient(circle, rgba(255,245,190,${progress * 0.004}) 0%, transparent 50%)`,
+                  transform: `scale(${1 + progress * 0.005})`,
+                  transition: "transform 0.08s, background 0.08s",
                 }}
               />
 
@@ -418,9 +417,6 @@ export default function Level5() {
                     animate={{
                       opacity: sealHover ? 0.5 : 0,
                       scale: sealHover ? 1.03 : 1,
-                      boxShadow: sealHover
-                        ? "0 0 35px rgba(212,175,55,0.12), inset 0 0 35px rgba(212,175,55,0.04)"
-                        : "0 0 0px transparent",
                     }}
                     transition={{ duration: 0.35 }}
                   />
@@ -496,9 +492,9 @@ export default function Level5() {
                 translate: "-50% -50%",
               }}
             >
-              {Array.from({ length: 16 }).map((_, i) => {
+              {Array.from({ length: 10 }).map((_, i) => {
                 const a =
-                  (i / 16) * Math.PI * 2 + (sr(1, i) - 0.5) * 0.5;
+                  (i / 10) * Math.PI * 2 + (sr(1, i) - 0.5) * 0.5;
                 const d = 70 + sr(2, i) * 160;
                 const sz = 7 + sr(3, i) * 16;
                 return (
@@ -535,25 +531,18 @@ export default function Level5() {
 
             {/* expanding golden glow */}
             <motion.div
-              className="pointer-events-none absolute z-10"
+              className="pointer-events-none absolute z-10 h-[200px] w-[200px] rounded-full"
               style={{
                 top: "40%",
                 left: "50%",
                 translate: "-50% -50%",
+                background:
+                  "radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 60%)",
               }}
-              initial={{ width: 200, height: 200, opacity: 0.5 }}
-              animate={{ width: 800, height: 800, opacity: 0 }}
+              initial={{ scale: 1, opacity: 0.5 }}
+              animate={{ scale: 4, opacity: 0 }}
               transition={{ duration: 1.5, ease: "easeOut" as const }}
-            >
-              <div
-                className="h-full w-full rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 60%)",
-                  filter: "blur(30px)",
-                }}
-              />
-            </motion.div>
+            />
 
             {/* completion text */}
             <motion.div

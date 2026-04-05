@@ -28,8 +28,12 @@ export default function Level6() {
   const rotateX = useTransform(smy, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(smx, [-0.5, 0.5], [-5, 5]);
 
+  const lastMoveRef = useRef(0);
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
+      const now = performance.now();
+      if (now - lastMoveRef.current < 32) return;
+      lastMoveRef.current = now;
       const rect = cardRef.current?.getBoundingClientRect();
       if (!rect) return;
       const px = (e.clientX - rect.left) / rect.width;
@@ -76,31 +80,21 @@ export default function Level6() {
   useEffect(() => {
     if (phase !== "live" || firedRef.current) return;
     firedRef.current = true;
-    const end = Date.now() + 3200;
-    const frame = () => {
-      confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 50,
-        origin: { x: 0, y: 0.55 },
-        colors: ["#d4af37", "#f5e6cc", "#f59e0b", "#fbbf24"],
-      });
-      confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 50,
-        origin: { x: 1, y: 0.55 },
-        colors: ["#d4af37", "#f5e6cc", "#f59e0b", "#fbbf24"],
-      });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    };
-    frame();
+    const colors = ["#d4af37", "#f5e6cc", "#f59e0b", "#fbbf24"];
+    const bursts = [0, 400, 900, 1500, 2200];
+    const timers = bursts.map((d) =>
+      setTimeout(() => {
+        confetti({ particleCount: 15, angle: 60, spread: 50, origin: { x: 0, y: 0.55 }, colors });
+        confetti({ particleCount: 15, angle: 120, spread: 50, origin: { x: 1, y: 0.55 }, colors });
+      }, d),
+    );
+    return () => timers.forEach(clearTimeout);
   }, [phase]);
 
   const celebrate = useCallback(() => {
     confetti({
-      particleCount: 100,
-      spread: 100,
+      particleCount: 50,
+      spread: 90,
       origin: { y: 0.55 },
       colors: ["#d4af37", "#f5e6cc", "#f59e0b", "#ec4899", "#a78bfa"],
     });
@@ -129,11 +123,10 @@ export default function Level6() {
         <motion.div
           className="rounded-full"
           style={{
-            width: 700,
-            height: 700,
+            width: 500,
+            height: 500,
             background:
               "radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(170,120,35,0.04) 45%, transparent 65%)",
-            filter: "blur(40px)",
           }}
           animate={
             phase === "live"
@@ -157,7 +150,7 @@ export default function Level6() {
               background:
                 "radial-gradient(circle, rgba(255,240,180,0.85) 0%, rgba(212,175,55,0.25) 55%, transparent 80%)",
               boxShadow:
-                "0 0 40px rgba(212,175,55,0.3), 0 0 80px rgba(212,175,55,0.08)",
+                "0 0 25px rgba(212,175,55,0.25)",
             }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: [0, 1, 1], scale: [0, 1, 2] }}
@@ -355,13 +348,12 @@ export default function Level6() {
                   <motion.div
                     className="pointer-events-none absolute right-5 left-5 z-30 h-px sm:right-7 sm:left-7"
                     style={{
+                      top: "4%",
                       background:
                         "linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.3) 20%, rgba(255,245,190,0.5) 50%, rgba(212,175,55,0.3) 80%, transparent 100%)",
-                      boxShadow:
-                        "0 0 10px rgba(212,175,55,0.15), 0 0 25px rgba(212,175,55,0.05)",
                     }}
-                    initial={{ top: "4%" }}
-                    animate={{ top: "96%" }}
+                    initial={{ y: 0 }}
+                    animate={{ y: 500 }}
                     transition={{
                       duration:
                         (REVEAL_DELAYS[TOTAL_STEPS - 1] + 200) / 1000,
@@ -396,7 +388,7 @@ export default function Level6() {
 
       {/* floating hearts */}
       {phase === "live" &&
-        Array.from({ length: 7 }).map((_, i) => (
+        Array.from({ length: 4 }).map((_, i) => (
           <motion.div
             key={i}
             className="pointer-events-none absolute text-amber-400/[0.06]"

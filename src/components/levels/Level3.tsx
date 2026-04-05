@@ -15,7 +15,7 @@ function seedRand(i: number, n: number) {
   return v - Math.floor(v);
 }
 
-const DUST = Array.from({ length: 20 }, (_, i) => ({
+const DUST = Array.from({ length: 10 }, (_, i) => ({
   id: i,
   x: 5 + seedRand(i, 1) * 90,
   y: 5 + seedRand(i, 2) * 90,
@@ -71,7 +71,7 @@ export default function Level3() {
     >
       {/* ambient glow — intensifies as threads draw */}
       <motion.div
-        className="pointer-events-none absolute rounded-full blur-3xl"
+        className="pointer-events-none absolute rounded-full blur-xl"
         style={{
           width: 600,
           height: 600,
@@ -175,42 +175,19 @@ export default function Level3() {
                   <stop offset="60%" stopColor="rgba(212,175,55,0.45)" />
                   <stop offset="100%" stopColor="rgba(255,230,150,0.7)" />
                 </linearGradient>
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="4" result="b" />
-                  <feMerge>
-                    <feMergeNode in="b" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter id="softGlow">
-                  <feGaussianBlur stdDeviation="8" />
-                </filter>
               </defs>
 
               {/* faint full-path guides */}
               <path d={THREAD_L} fill="none" stroke="rgba(212,175,55,0.03)" strokeWidth="1" strokeDasharray="4 12" />
               <path d={THREAD_R} fill="none" stroke="rgba(212,175,55,0.03)" strokeWidth="1" strokeDasharray="4 12" />
 
-              {/* soft outer glow — left */}
+              {/* soft halo — left */}
               <motion.path
                 d={THREAD_L}
                 fill="none"
-                stroke="rgba(212,175,55,0.08)"
-                strokeWidth="10"
+                stroke="rgba(212,175,55,0.1)"
+                strokeWidth="6"
                 strokeLinecap="round"
-                filter="url(#softGlow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: threadTarget }}
-                transition={{ duration: DRAW_DURATION, ease: [0.25, 0.1, 0.25, 1] }}
-              />
-              {/* inner glow — left */}
-              <motion.path
-                d={THREAD_L}
-                fill="none"
-                stroke="rgba(212,175,55,0.2)"
-                strokeWidth="4"
-                strokeLinecap="round"
-                filter="url(#glow)"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: threadTarget }}
                 transition={{ duration: DRAW_DURATION, ease: [0.25, 0.1, 0.25, 1] }}
@@ -220,33 +197,20 @@ export default function Level3() {
                 d={THREAD_L}
                 fill="none"
                 stroke="url(#gL)"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: threadTarget }}
                 transition={{ duration: DRAW_DURATION, ease: [0.25, 0.1, 0.25, 1] }}
               />
 
-              {/* soft outer glow — right */}
+              {/* soft halo — right */}
               <motion.path
                 d={THREAD_R}
                 fill="none"
-                stroke="rgba(212,175,55,0.08)"
-                strokeWidth="10"
+                stroke="rgba(212,175,55,0.1)"
+                strokeWidth="6"
                 strokeLinecap="round"
-                filter="url(#softGlow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: threadTarget }}
-                transition={{ duration: DRAW_DURATION, ease: [0.25, 0.1, 0.25, 1] }}
-              />
-              {/* inner glow — right */}
-              <motion.path
-                d={THREAD_R}
-                fill="none"
-                stroke="rgba(212,175,55,0.2)"
-                strokeWidth="4"
-                strokeLinecap="round"
-                filter="url(#glow)"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: threadTarget }}
                 transition={{ duration: DRAW_DURATION, ease: [0.25, 0.1, 0.25, 1] }}
@@ -256,7 +220,7 @@ export default function Level3() {
                 d={THREAD_R}
                 fill="none"
                 stroke="url(#gR)"
-                strokeWidth="1.8"
+                strokeWidth="2"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: threadTarget }}
@@ -269,10 +233,10 @@ export default function Level3() {
               <div className="absolute bottom-[8%] left-1/2 z-20 -translate-x-1/2">
                 <div className="h-[2px] w-24 overflow-hidden rounded-full bg-white/[0.04]">
                   <motion.div
-                    className="h-full rounded-full"
+                    className="h-full w-full origin-left rounded-full"
                     style={{ background: "linear-gradient(90deg, rgba(212,175,55,0.5), rgba(255,230,150,0.7))" }}
-                    initial={{ width: "0%" }}
-                    animate={{ width: "100%" }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
                     transition={{ duration: DRAW_DURATION, ease: "linear" }}
                   />
                 </div>
@@ -337,8 +301,8 @@ export default function Level3() {
 
                   {/* burst particles */}
                   <div className="pointer-events-none absolute">
-                    {Array.from({ length: 16 }).map((_, i) => {
-                      const angle = (i / 16) * Math.PI * 2;
+                    {Array.from({ length: 8 }).map((_, i) => {
+                      const angle = (i / 8) * Math.PI * 2;
                       const dist = 45 + (i % 4) * 15;
                       return (
                         <motion.div

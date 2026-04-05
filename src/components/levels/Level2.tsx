@@ -116,7 +116,7 @@ export default function Level2() {
     >
       {/* ambient glow — offset for asymmetry */}
       <div
-        className="pointer-events-none absolute h-[520px] w-[520px] rounded-full bg-violet-500/[0.045] blur-3xl"
+        className="pointer-events-none absolute h-[520px] w-[520px] rounded-full bg-violet-500/[0.045] blur-xl"
         style={{ top: "28%", left: "42%", translate: "-50% -50%" }}
       />
 
@@ -333,7 +333,7 @@ export default function Level2() {
                   }
                 >
                   <motion.div
-                    className={`relative flex w-[7rem] flex-col items-center gap-1.5 rounded-2xl border px-3 py-3.5 backdrop-blur-sm transition-colors sm:w-[7.5rem] sm:gap-2 sm:px-4 sm:py-4 md:w-36 md:gap-3 md:px-5 md:py-5 ${
+                    className={`relative flex w-[7rem] flex-col items-center gap-1.5 rounded-2xl border px-3 py-3.5 transition-colors sm:w-[7.5rem] sm:gap-2 sm:px-4 sm:py-4 md:w-36 md:gap-3 md:px-5 md:py-5 ${
                       isDone
                         ? "border-amber-400/25 bg-amber-500/[0.07]"
                         : "border-violet-400/[0.1] bg-white/[0.025] hover:border-violet-300/25 hover:bg-white/[0.06]"
@@ -407,7 +407,7 @@ export default function Level2() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6, duration: 1 }}
                 >
-                  <div className="absolute inset-0 bg-[#07070f]/65 backdrop-blur-sm" />
+                  <div className="absolute inset-0 bg-[#07070f]/80" />
                   <motion.div
                     className="relative z-10 flex flex-col items-center gap-4 text-center px-8"
                     initial={{ opacity: 0, y: 24, scale: 0.95 }}

@@ -56,7 +56,7 @@ export default function Level1() {
           setShowTap(true);
         }, 700);
       }
-    }, 50);
+    }, 65);
     return () => clearInterval(id);
   }, [phase]);
 
@@ -79,7 +79,7 @@ export default function Level1() {
     pool.length = 0;
 
     // seed ambient fireflies
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 20; i++) {
       pool.push({
         x: Math.random() * cvs.width,
         y: Math.random() * cvs.height,
@@ -94,7 +94,10 @@ export default function Level1() {
     }
 
     const loop = (now: number) => {
-      const dt = Math.min(now - prev, 33) / 16;
+      raf = requestAnimationFrame(loop);
+      const elapsed = now - prev;
+      if (elapsed < 33) return;
+      const dt = Math.min(elapsed, 66) / 16;
       prev = now;
       ctx.clearRect(0, 0, cvs.width, cvs.height);
 
@@ -103,8 +106,8 @@ export default function Level1() {
       const p = phaseRef.current;
 
       // cursor trail sparks
-      if (hasPointer && p !== "dark" && p !== "exit") {
-        for (let n = 0; n < 2; n++) {
+      if (hasPointer && p !== "dark" && p !== "exit" && Math.random() > 0.5) {
+        for (let n = 0; n < 1; n++) {
           pool.push({
             x: mx + (Math.random() - 0.5) * 14,
             y: my + (Math.random() - 0.5) * 14,
@@ -175,30 +178,14 @@ export default function Level1() {
           a = 0.7 * (m.life / m.maxLife);
         }
 
-        // soft glow halo
-        const g = ctx.createRadialGradient(
-          m.x,
-          m.y,
-          0,
-          m.x,
-          m.y,
-          m.r * 5,
-        );
-        g.addColorStop(0, `hsla(${m.hue},80%,68%,${a * 0.55})`);
-        g.addColorStop(1, `hsla(${m.hue},80%,68%,0)`);
+        ctx.globalAlpha = a;
+        ctx.fillStyle = `hsl(${m.hue},80%,75%)`;
         ctx.beginPath();
-        ctx.arc(m.x, m.y, m.r * 5, 0, Math.PI * 2);
-        ctx.fillStyle = g;
+        ctx.arc(m.x, m.y, m.r * 1.5, 0, Math.PI * 2);
         ctx.fill();
-
-        // bright core
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${m.hue},80%,82%,${a})`;
-        ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
-      raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
 
@@ -225,7 +212,7 @@ export default function Level1() {
     if (cvs) {
       const cx = cvs.width / 2;
       const cy = cvs.height * 0.4;
-      for (let i = 0; i < 90; i++) {
+      for (let i = 0; i < 35; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = Math.random() * 5 + 2;
         motes.current.push({
@@ -281,7 +268,7 @@ export default function Level1() {
           style={{
             background:
               "radial-gradient(ellipse, rgba(212,175,55,0.055) 0%, rgba(180,140,50,0.02) 45%, transparent 70%)",
-            filter: "blur(55px)",
+            filter: "blur(25px)",
           }}
         />
       </motion.div>
@@ -297,7 +284,6 @@ export default function Level1() {
               exit={{
                 opacity: 0,
                 scale: 0.8,
-                filter: "blur(18px)",
                 transition: { duration: 0.8 },
               }}
             >
@@ -442,13 +428,8 @@ export default function Level1() {
                       <motion.div
                         className="h-3 w-3 rounded-full bg-amber-300/60"
                         animate={{
-                          scale: [1, 1.6, 1],
+                          scale: [1, 1.4, 1],
                           opacity: [0.45, 0.95, 0.45],
-                          boxShadow: [
-                            "0 0 6px 2px rgba(212,175,55,0.15)",
-                            "0 0 20px 6px rgba(212,175,55,0.35)",
-                            "0 0 6px 2px rgba(212,175,55,0.15)",
-                          ],
                         }}
                         transition={{
                           duration: 2.6,
