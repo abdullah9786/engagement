@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import confetti from "canvas-confetti";
 
-const REVEAL_DELAYS = [0, 400, 750, 1150, 1600, 2050, 2450, 2850];
+const REVEAL_DELAYS = [0, 400, 750, 1150, 1600, 2050, 2450, 2850, 3200];
 const TOTAL_STEPS = REVEAL_DELAYS.length;
 
 export default function Level6() {
@@ -319,13 +319,22 @@ export default function Level6() {
                     </div>
                   </Reveal>
 
+                  {/* contact */}
+                  <Reveal visible={step >= 7}>
+                    <div className="flex items-center gap-3 text-[0.55rem] tracking-wider text-amber-200/50 sm:text-[0.65rem]">
+                      <a href="tel:8082642786" className="transition-colors hover:text-amber-200/80">8082642786</a>
+                      <span className="text-amber-400/20">|</span>
+                      <a href="tel:8767271379" className="transition-colors hover:text-amber-200/80">8767271379</a>
+                    </div>
+                  </Reveal>
+
                   {/* bottom divider */}
-                  <Reveal visible={step >= 7} scaleX>
+                  <Reveal visible={step >= 8} scaleX>
                     <div className="h-px w-12 bg-gradient-to-r from-transparent via-amber-400/25 to-transparent sm:w-16" />
                   </Reveal>
 
                   {/* actions */}
-                  <Reveal visible={step >= 8}>
+                  <Reveal visible={step >= 9}>
                     <div className="flex gap-3.5 pt-0.5 sm:gap-4">
          
                       <motion.button
