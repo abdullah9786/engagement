@@ -307,43 +307,33 @@ export default function Level3() {
                     transition={{ duration: 1.4, ease: "easeOut" as const }}
                   />
 
-                  {/* golden knot — concentric rings */}
-                  <div className="relative flex items-center justify-center">
-                    {[48, 34, 22].map((size, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute rounded-full"
-                        style={{
-                          width: size,
-                          height: size,
-                          border: `${1.5 - i * 0.3}px solid rgba(212,175,55,${0.4 - i * 0.08})`,
-                          boxShadow: i === 2
-                            ? "0 0 24px rgba(212,175,55,0.25), inset 0 0 12px rgba(212,175,55,0.12)"
-                            : "none",
-                        }}
-                        initial={{ scale: 0, rotate: -120 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 280,
-                          damping: 16,
-                          delay: 0.1 + i * 0.14,
-                        }}
-                      />
-                    ))}
-                    <motion.div
-                      className="relative rounded-full"
-                      style={{
-                        width: 9,
-                        height: 9,
-                        background: "radial-gradient(circle, rgba(255,230,150,0.9) 0%, rgba(212,175,55,0.55) 100%)",
-                        boxShadow: "0 0 16px rgba(212,175,55,0.5)",
-                      }}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 12, delay: 0.55 }}
+                  {/* golden heart */}
+                  <motion.svg
+                    viewBox="0 0 24 24"
+                    className="relative h-12 w-12 sm:h-14 sm:w-14"
+                    initial={{ scale: 0, rotate: -30 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 14,
+                      delay: 0.2,
+                    }}
+                    style={{
+                      filter: "drop-shadow(0 0 14px rgba(212,175,55,0.45)) drop-shadow(0 0 30px rgba(212,175,55,0.15))",
+                    }}
+                  >
+                    <defs>
+                      <linearGradient id="heartFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="rgba(255,230,150,0.95)" />
+                        <stop offset="100%" stopColor="rgba(212,175,55,0.8)" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                      fill="url(#heartFill)"
                     />
-                  </div>
+                  </motion.svg>
 
                   {/* burst particles */}
                   <div className="pointer-events-none absolute">
